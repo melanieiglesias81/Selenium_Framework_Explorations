@@ -1,17 +1,22 @@
-import org.openqa.selenium.Proxy;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+package features.BasicTest;
 
-public class ProxyTest {
-    public static void main(String[] args) {
-        Proxy proxy = new Proxy();
-        proxy.setHttpProxy("<HOST:PORT>");
-        ChromeOptions options = new ChromeOptions();
-        options.setCapability("proxy", proxy);
-        WebDriver driver = new ChromeDriver(options);
-        driver.get("https://www.google.com/");
-        driver.manage().window().maximize();
-        driver.quit();
+import base.BaseTests;
+import org.testng.annotations.Test;
+import pages.LoginPage;
+import pages.SecureAreaPage;
+import static org.testng.Assert.assertTrue;
+
+public class exercise1_Login{
+
+    @Test
+    public void testSuccessfulLogin() {
+        LoginPage loginPage = homePage.clickFormAuthentication();
+        loginPage.setUsername("tomsmith");
+        loginPage.setPassword("SuperSecretPassword!");
+        SecureAreaPage secureAreaPage = loginPage.clickLoginButton();
+
+        assertTrue(secureAreaPage.getAlertText()
+                        .contains("You logged into a secure area!"),
+                "Alert text is incorrect");
     }
 }
