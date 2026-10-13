@@ -15,7 +15,6 @@ public class LoginTest {
 
     @BeforeMethod
     public void setUp() {
-        // Sa Selenium 4+, awtomatiko nang inaayos ng driver ang sarili nitong executables
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://herokuapp.com");
@@ -23,19 +22,15 @@ public class LoginTest {
 
     @Test
     public void testValidLogin() {
-        // Paghahanap sa Username field at pag-input ng data
         WebElement usernameField = driver.findElement(By.id("username"));
         usernameField.sendKeys("tomsmith");
 
-        // Paghahanap sa Password field at pag-input ng data
         WebElement passwordField = driver.findElement(By.id("password"));
         passwordField.sendKeys("SuperSecretPassword!");
 
-        // Pag-click sa Submit/Login button
         WebElement loginButton = driver.findElement(By.cssSelector("button[type='submit']"));
         loginButton.click();
 
-        // Pag-verify ng tagumpay gamit ang TestNG Assertion
         WebElement successAlert = driver.findElement(By.id("flash"));
         String alertText = successAlert.getText();
 
@@ -45,7 +40,6 @@ public class LoginTest {
 
     @AfterMethod
     public void tearDown() {
-        // Palaging isasara ang browser window pagkatapos ng test
         if (driver != null) {
             driver.quit();
         }
